@@ -59,11 +59,12 @@ class PropertyTracker
       dbname: "property_tracker",
       host: "localhost"
       })
-    sql = "SELECT * FROM property_tracker"
+    sql = "SELECT * FROM property_tracker WHERE id = $1"
+    values = [id]
     db.prepare("find", sql)
-    properties = db.exec_prepared("find")
+    property_hash = db.exec_prepared("find", values)[0]
     db.close()
-    return properties.find { |property| property['id'] = id}
+    return PropertyTracker.new(property_hash)
   end
 
   def PropertyTracker.all()
