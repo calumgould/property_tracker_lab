@@ -54,6 +54,18 @@ class PropertyTracker
     db.close()
   end
 
+  def PropertyTracker.find(id)
+    db = PG.connect({
+      dbname: "property_tracker",
+      host: "localhost"
+      })
+    sql = "SELECT * FROM property_tracker"
+    db.prepare("find", sql)
+    properties = db.exec_prepared("find")
+    db.close()
+    return properties.find { |property| property['id'] = id}
+  end
+
   def PropertyTracker.all()
     db = PG.connect({
       dbname: "property_tracker",
