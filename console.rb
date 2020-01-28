@@ -1,7 +1,7 @@
 require('pry')
 require_relative('models/property')
 
-# PropertyTracker.delete_all()
+PropertyTracker.delete_all()
 
 flat1 = PropertyTracker.new({
   'address' => '20 Lothian Road',
